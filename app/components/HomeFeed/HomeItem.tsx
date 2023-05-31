@@ -7,7 +7,7 @@ type HomeItemProps = {
 
 const HomeItem:React.FC<HomeItemProps> = ({home}) => {
   const router = useRouter();
-    console.log(home)
+
   const formatedNumber = useMemo(() => {
     if (home.price) {
       return home.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

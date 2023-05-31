@@ -12,11 +12,11 @@ export interface userType {
     REALTOR = "REALTOR",
   }
 const  userRole =() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage?.getItem('token');
     if(!token) return null;
-    const decoded = jwt.decode(token) as userType;
+    const decoded = jwt?.decode(token) as userType;
     if(!decoded) return null;
-    const role = decoded.role;
+    const role = decoded?.role;
     return role;
 
 

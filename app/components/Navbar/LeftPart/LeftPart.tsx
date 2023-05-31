@@ -2,9 +2,7 @@
 import React, { useState } from 'react';
 import { IconType } from 'react-icons';
 import Item from './Item';
-type LeftPartProps = {
-    
-};
+
 export type Tab = {
     title: string;
     icon?: IconType;
@@ -13,7 +11,7 @@ export type Tab = {
     auth?:boolean
 }
 
-const LeftPart:React.FC<LeftPartProps> = () => {
+const LeftPart:React.FC = () => {
     const Tabs:Tab[] = [
         {
             title: 'Buy',
@@ -38,7 +36,7 @@ const LeftPart:React.FC<LeftPartProps> = () => {
     
         },
         {
-            title: 'Agent Finder',
+            title: 'AgentFinder',
             href: '/'
         }
         
