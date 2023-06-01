@@ -5,13 +5,13 @@ interface InputProps {
     type?: string;
     disabled?: boolean;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    label?: string;
+
   }
   
-  const Input: React.FC<InputProps> = ({ placeholder, value, type = "text", onChange, disabled, label }) => {
+  const Input: React.FC<InputProps> = ({ placeholder, value, type = "text", onChange, disabled }) => {
     return (
       <div className="w-full">
-        {label && <p className="text-xl text-white font-semibold mb-2">{label}</p>}
+      
         <input
           disabled={disabled}
           onChange={onChange}
@@ -22,9 +22,9 @@ interface InputProps {
             w-full
             p-4 
             text-lg 
-            bg-gray-300
+            bg-white
             border-2
-            border-gray-400 
+            border-gray-300 
             rounded-md
             outline-none
             text-black
@@ -34,6 +34,7 @@ interface InputProps {
             disabled:bg-neutral-900
             disabled:opacity-70
             disabled:cursor-not-allowed
+            mb-2
           "
         
         />

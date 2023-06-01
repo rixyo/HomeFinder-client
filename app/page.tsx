@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconType } from 'react-icons';
 import Recomandation from './components/RecomandationTabs';
 import { BsPiggyBank, BsPieChart } from 'react-icons/bs';
@@ -57,6 +57,7 @@ export default function Home() {
 
     }
   ]
+ 
 
  const [selectedTab,setSelectedTab]=useState<string>("")
   return (

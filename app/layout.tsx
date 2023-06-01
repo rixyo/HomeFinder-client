@@ -1,5 +1,6 @@
 import Footer from './components/Footer'
 import NavigationBar from './components/Navbar/page'
+import ToasterContext from './context/TosterContext'
 import './globals.css'
 
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <nav className=''>
         <NavigationBar/>
         </nav>
+        <ToasterContext/>
         {children}
         <Footer/>
         </body>
