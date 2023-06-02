@@ -1,5 +1,6 @@
 import React from 'react';
 import { RealtorTab } from '../page';
+import {useRouter} from 'next/navigation'
 
 type ProfileItemsProps = {
     tab: RealtorTab;
@@ -10,9 +11,10 @@ type ProfileItemsProps = {
 };
 
 const ProfileItems:React.FC<ProfileItemsProps> = ({tab,selectedTab,setSelectedTab}) => {
+    const router=useRouter()
     
     return(
-        <div className='flex items-center xl:justify-normal  cursor-pointer mt-2' key={`${tab.title+"tab"}`} onClick={()=>setSelectedTab(tab.title)}>
+        <div className='flex items-center xl:justify-normal  cursor-pointer mt-2'  onClick={()=>setSelectedTab(tab.title)}>
         <div  className='p-1
            rounded-full 
            h-14
@@ -22,12 +24,17 @@ const ProfileItems:React.FC<ProfileItemsProps> = ({tab,selectedTab,setSelectedTa
            hover:bg-slate-300 
            hover:bg-opacity-10 
            cursor-pointer 
-        ' key={Math.random()/2}>
-            <tab.icon className={`text-2xl ${selectedTab ? 'text-blck' : 'text-gray-500'} `}  title={tab.title} />
+        ' >
+            <tab.icon className={`text-2xl ${selectedTab ? 'text-blck' : 'text-gray-500'} `}  title={tab.title}/>
            
         </div>
         <div  >
+           {tab.title==="Home" && 
+           <p className={`text-sm ${selectedTab ? 'border-b-4 border-red-500' : 'text-gray-500'}  font-semibold hidden md:block `} onClick={()=>router.push('/')} >{tab.title}</p>
+           } 
+           {tab.title!=="Home" && 
             <p className={`text-sm ${selectedTab ? 'border-b-4 border-red-500' : 'text-gray-500'}  font-semibold hidden md:block `} >{tab.title}</p>
+           } 
         </div>
 
     </div>

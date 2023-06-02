@@ -13,12 +13,12 @@ const page:React.FC = () => {
     const [password,setPassword]=useState<string>("")
     const handleClick=useCallback(()=>{
         if(email===""||password==="") return
-        axios.post("http://localhost:5000/auth/login",{email,password}).then((res)=>{
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,{email,password}).then((res)=>{
             localStorage.setItem("token",res.data)
             setEmail("")
             setPassword("")
             router.push("/profile")
-            toast.success("Loged in")
+            toast.success("Logged in")
         }).catch((err)=>{
             console.log(err)
             toast.error(err.response.data.message)

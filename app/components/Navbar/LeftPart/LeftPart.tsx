@@ -1,4 +1,6 @@
 "use client"
+import useCurrentUser from '@/app/hooks/useCurrentUser';
+import { data } from 'autoprefixer';
 import React, { useState } from 'react';
 import { IconType } from 'react-icons';
 import Item from './Item';
@@ -12,6 +14,7 @@ export type Tab = {
 }
 
 const LeftPart:React.FC = () => {
+    const {data:user} =useCurrentUser()
     const Tabs:Tab[] = [
         {
             title: 'Buy',
@@ -30,13 +33,13 @@ const LeftPart:React.FC = () => {
             href: ''
         },
         {
-            title: 'Mortgage',
+            title: 'Advertise',
         
             href: '/'
     
         },
         {
-            title: 'AgentFinder',
+            title: 'Become a Realtor',
             href: '/'
         }
         
@@ -46,11 +49,18 @@ const LeftPart:React.FC = () => {
     
     return (
         <>
-        <div className="flex  items-center justify-center" >
+        {user?.role==="BUYER" && <div className="flex  items-center justify-center" >
             {Tabs.map((tab, index) =>
             <Item key={index} tab={tab} selectedTab={tab.title===selectedTab} setSelectedTab={setSelectedTab}/>
              )}
         </div>
+}
+{!user && <div className="flex  w-full items-center justify-center" >
+            {Tabs.map((tab, index) =>
+            <Item key={index} tab={tab} selectedTab={tab.title===selectedTab} setSelectedTab={setSelectedTab}/>
+             )}
+        </div>
+}
         </>
 
     )

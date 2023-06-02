@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import fetcher from "@/app/libs/fatcher";
 
 const useHomes = () => {
-    const url="http://localhost:5000/home";
+    const url=`${process.env.NEXT_PUBLIC_API_URL}/home`;
     const { data, error, isLoading, mutate } = useSWR(url, fetcher);
     return {
         data,

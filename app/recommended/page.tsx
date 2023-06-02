@@ -9,7 +9,8 @@ type pageProps = {
 };
 
 const page:React.FC<pageProps> = () => {
-    const {data,isLoading,error}=useHomes()
+    const {data,isLoading}=useHomes()
+    console.log(data)
     
     return (
         <main className='p-24'>

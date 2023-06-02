@@ -39,6 +39,8 @@ const ImageUpload:React.FC<FormImageUploadProps> = ({onChange,value,label}) => {
               hover:opacity-70
               transition
               border-dashed 
+              border-red-500
+              mb-4
               border-2 
               p-10
               

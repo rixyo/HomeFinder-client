@@ -1,5 +1,5 @@
 "use client"
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import useHome from '../hooks/useHome';
 import useHomeId from '../hooks/useHomeId';
 import { Slide, Zoom } from 'react-slideshow-image';
@@ -7,34 +7,16 @@ import 'react-slideshow-image/dist/styles.css'
 import TextArea from '../components/TextArea';
 import Button from '../components/Button';
 import {GridLoader} from "react-spinners"
+import axios from 'axios';
+import useCurrentUser from '../hooks/useCurrentUser';
+import toast from 'react-hot-toast';
  
-
-
-const spanStyle = {
-      padding: '20px',
-      background: '#efefef',
-      color: '#000000'
-    }
-    
-    const divStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      innerWidth: '100%',
-      marginTop: '20px',
-    }
 const page:React.FC = () => {
   const {homeId} =useHomeId()
+  const {data:user}=useCurrentUser()
   const {data,isLoading} =useHome(homeId as string)
   const [message, setMessage] = useState<string>(`Hi, I'm interested in this listing. Please let me know when I can come for a viewing. Thank you.`);
   const [isSending, setIsSending] = useState<boolean>(false);
- 
-
-
-
-    
       const formatedNumber = useMemo(() => {
         if (data?.price) {
           return data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -47,6 +29,23 @@ const page:React.FC = () => {
         }
         return null;
       }, [data?.sqft]);
+     const handleSend= useCallback(async()=>{
+      if(!user) return
+        setIsSending(true);
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/home/${homeId}/inquire`,{message},{
+        headers:{
+          Authorization:`Bearer ${localStorage.getItem("token")}`
+        }
+      }).then((res)=>{
+        setIsSending(false);
+        setMessage("")
+        toast.success("Thank you for your interest. We will get back to you shortly.")
+      }).catch((err)=>{
+        setIsSending(false);
+        toast.error("Something went wrong, please try again later.")
+      })
+
+     },[user,message,homeId])
    
    return (
     <div className="w-full  lg:grid lg:grid-cols-2 gap-5 lg:p-24">
@@ -94,7 +93,8 @@ const page:React.FC = () => {
     />
     <Button 
     label="Send"
-    onClick={()=>{}}
+    disabled={isSending}
+    onClick={handleSend}
     fullWidth
     />
   </div>

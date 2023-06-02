@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 const RightPart:React.FC = () => {
     const {data:user} =useCurrentUser()
     const router=useRouter()
+
     
     return (
         <>
